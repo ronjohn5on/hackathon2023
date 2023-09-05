@@ -14,7 +14,7 @@ def quiz():
 
 
 @app.errorhandler(404)
-def url_error():
+def url_error(error):
     return render_template('404error.html'),404
 
 @app.errorhandler(Exception)
