@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+{% block style %}
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Style table header */
+table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+/* Style table rows */
+table td, table th {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Apply alternating row background color */
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect for rows */
+table tbody tr:hover {
+    background-color: #ddd;
+}
+
+table td img {
+    width: 100px;
+    height: 100px;
+}
+</style>
+{% endblock %}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Cooking Time</th>
+            <th>Ingredient</th>
+            <th>Category</th>
+            <th>Goal 1</th>
+            <th>Goal 2</th>
+            <th>Goal 3</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for food_item in food_items %}
+        <tr>
+            <td>{{ food_item.title }}</td>
+            <td>{{ food_item.cooking_time }}</td>
+            <td>{{ food_item.ingredients.ingredient_name }}</td>
+            <td>{{ food_item.categories.category }}</td>
+            <td>{{ food_item.goal1 }}</td>
+            <td>{{ food_item.goal2 }}</td>
+            <td>{{ food_item.goal3 }}</td>
+            <td><img src="{{ url_for('static', filename='img/' + food_item.image) }}" alt=""></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -25,6 +25,7 @@ app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)  # Set session timeout to 30 minutes
 Session(app)
 
+app.config['UPLOAD_FOLDER'] = 'static/img'
 DEFAULT_PROFILE_PICTURE = "Placeholder.png"
 
 @login_manager.user_loader
@@ -34,6 +35,54 @@ def load_user(user_id):
 # Function to generate a random token
 def generate_token():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=32))
+
+def create_ingredient():
+     with app.app_context():
+        existing = ingredient.query.all()
+        if not existing:
+            ingredient1 = ingredient(ingredient_name="Rice")
+            ingredient2 = ingredient(ingredient_name="Noodles")
+            db.session.add(ingredient1)
+            db.session.add(ingredient2)
+            db.session.commit()
+
+def create_food_category():
+    with app.app_context():
+        existing = food_category.query.all()
+        if not existing:
+            category1 = food_category(category="Western")
+            category2 = food_category(category="Chinese")
+            db.session.add(category1)
+            db.session.add(category2)
+            db.session.commit()
+
+def create_food():
+    with app.app_context():
+        existing = food.query.all()
+        if not existing:
+            food_item1 = food(
+                title="Chicken Rice",
+                cooking_time=30,
+                ingredient = 1,
+                category = 2,
+                goal1="Goal 1",
+                goal2="Goal 2",
+                goal3="Goal 3",
+                image = "chicken_rice.webp"
+            )
+            food_item2 = food(
+                title="Spaghetti",
+                cooking_time=10,
+                ingredient = 2,
+                category = 1,
+                goal1="Goal 1",
+                goal2="Goal 2",
+                goal3="Goal 3",
+                image = "spagehti.jpg"
+            )
+            db.session.add(food_item1)
+            db.session.add(food_item2)
+            db.session.commit()
 
 @app.route('/')
 @app.route('/home')
@@ -194,11 +243,6 @@ def login():
 
     return render_template('login.html', form=form)
 
-
-
-
-
-
 @app.route('/logout')
 def logout():
     session.clear()
@@ -206,6 +250,12 @@ def logout():
     logout_user()
     flash('You have been logged out.', category='alert-success')
     return redirect(url_for('home'))
+
+@app.route('/food_items')
+def display_food_items():
+    # Query the food table to retrieve all food items
+    food_items = food.query.all()
+    return render_template('food_items.html', food_items=food_items)
 
 @app.route('/quiz')
 def quiz():
@@ -228,4 +278,7 @@ def internal_error(error):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+        create_ingredient()
+        create_food_category()
+        create_food()
     app.run(debug=True)
