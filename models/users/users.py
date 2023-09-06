@@ -1,4 +1,5 @@
 from app import db
+from models.results.test_results import TestResults
 
 class Users(db.Model):
     __tablename__ = 'Users'  # Specify the table name explicitly
@@ -8,6 +9,9 @@ class Users(db.Model):
     password = db.Column(db.String(120), nullable=False)
     verified = db.Column(db.Boolean, default=False)
     profile_picture = db.Column(db.String(200))  # Add the profile picture column
+    test_results = db.Column(db.Integer, db.ForeignKey(TestResults.id))
+
+    result = db.relationship(TestResults, backref='result')
 
     # Implement the UserMixin methods
     def is_active(self):
