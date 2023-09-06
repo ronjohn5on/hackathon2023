@@ -256,6 +256,12 @@ def display_food_items():
     food_items = food.query.all()
     return render_template('food_items.html', food_items=food_items)
 
+@app.route('/food_items2')
+def display_food_items2():
+    # Query the food table to retrieve all food items
+    food_items = food.query.all()
+    return render_template('food_items2.html', food_items=food_items)
+
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
     quizForm = quiz(request.form)
