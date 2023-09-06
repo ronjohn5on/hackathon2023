@@ -3,7 +3,7 @@ import mysql.connector    #pip install mysql-connector-python
 mydb = mysql.connector.connect(
 	host="localhost",
 	user="root",
-	passwd="urpassword",      #replace with your password
+	passwd="wenjie",      #replace with your password
 	)
 
 my_cursor = mydb.cursor()
