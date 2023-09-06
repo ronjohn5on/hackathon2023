@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}SaveThePlanet - BMI Calculator{% endblock %} {% block content %} 
+{% from "includes/_formHelper.html" import render_field %}
+<header>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="text-center my-5">
+                <h1 class="display-5 fw-bolder mb-2">BMI Calculator</h1>
+                <p class="lead mb-4">Check your BMI(Body Mass Index) to see if your current weight is healthy for you!</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<form method="POST" action="">
+    <div class="form-group">
+        <input type="text" id="weight" placeholder="Please input your weight in Kg">
+    </div>
+    <div class="form-group">
+        <input type="text" id="height" placeholder="Please input your height in cm">
+    </div>
+    <button onclick="bmiCal()">Try it</button>
+</form>
+
+<img src="/static/img/bmiTable.png">
+<p style="font-weight: bold;">Note:</p>
+<p>BMI should not be used to calculate health risks in pregnant women, people with a muscular build and the elderly. These BMI values also do not apply to youths below 18 years old.</p> 
+<hr>
+<p style="font-weight: bold;">Being overweight (BMI ≥ 23kg/m2) puts you at risk of many heart-related problems:</p>
+<ul>
+    <li>High blood pressure</li>
+    <li>Diabetes</li>
+    <li>High blood cholesterol</li>
+</ul>
+<p>An obese person (BMI ≥ 30kg/m2) also has a three times higher risk of heart attack than someone within the healthy weight range</p>
+
+<!-- script to calculate BMI -->
+<script>
+    function bmiCal() {
+        var weight = document.getElementById('weight').value;
+        var height = document.getElementById('height').value;
+        var height = height/100 ;
+        var bmi = weight*height**2;
+
+        alert("Your BMI is "+bmi);
+    }
+
+</script>
+
+{%endblock%}

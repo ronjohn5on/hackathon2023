@@ -7,7 +7,7 @@ from models.users.users import Users
 from sqlalchemy import func, desc
 import random
 import string
-
+from forms import *
 from flask_session import Session
 import bcrypt
 
@@ -37,6 +37,11 @@ def generate_token():
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+@app.route('/bmi')
+def bmiCal():
+    form = bmi()
+    return render_template('bmi.html')
 
 # Account Management
 @app.route('/register', methods=['GET', 'POST'])
