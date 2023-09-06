@@ -15,4 +15,9 @@ class ingredient(db.Model):
     food_id_foreign_key = db.Column(db.Integer)
     ingredient_name = db.Column(db.String(120))
 
+class food_category(db.Model):
+    __tablename__ = 'food_category'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    food_id_foreign_key = db.Column(db.Integer)
+    category = db.Column(db.String(120))
 
