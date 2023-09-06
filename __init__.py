@@ -105,9 +105,9 @@ def create_food():
                 category = 2,
                 time = 2,
                 restriction = 1,
-                goal1="Goal 1",
-                goal2="Goal 2",
-                goal3="Goal 3",
+                goal1="Maximum Nutrition Meal",
+                goal2="Weightless Meal",
+                goal3="None",
                 image = "chicken_rice.webp",
                 cooking_direction = '''
                 Ingredients:
@@ -162,9 +162,9 @@ def create_food():
                 category = 1,
                 time = 1,
                 restriction = 3,
-                goal1="Goal 1",
-                goal2="Goal 2",
-                goal3="Goal 3",
+                goal1="None",
+                goal2="Protein Meal",
+                goal3="None",
                 image = "spagehti.jpg",
                 cooking_direction='''
                     Ingredients:
@@ -428,41 +428,84 @@ def return_food_on_quiz():
     try:
         if session.get('logged_in'):
             print("User logged in")
-            pass
-        if session.get('quiz_choices'):
+
+
+            #Get test result id
+            test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+
+            #IF there is test result id
+            if test_results_id:
+                #Retrieve result based on test_results_id
+                test_results = TestResults.query.filter_by(id=test_results_id).first()
+
+                quizTime = test_results.time
+                quizDiet = test_results.diet
+                quizCuisine = test_results.cuisine
+                goals = [test_results.goal1, test_results.goal2, test_results.goal3]
+            else:
+                print("No result for logged in user, returning all food")
+                return food.query.all()
+
+        elif session.get('quiz_choices'):
             print("Have quiz_choice")
 
             data_holder = ['time','diet','cuisine','category', 'goal'] #For referrence
             quizTime = session['quiz_choices']['time']
             quizDiet = session['quiz_choices']['diet']
-            print(quizTime)
-            print(quizDiet)
-
-            #Translating quiz data to database syntax
-
-            if quizTime == '>20min': #Should be less than
-                validated_time = 20
-            elif quizTime == '>1h':
-                validated_time = 60
-
-            quizDiet
+            quizCuisine = session['quiz_choices']['cuisine']
+            goals = [session['quiz_choices']['goal1'],session['quiz_choices']['goal2'],session['quiz_choices']['goal3']]
 
 
-
-
-
-
-            print("Getting food item")
-            food_item = food.query.filter(food.time <= validated_time, food.restriction==quizDiet).all()
-            print('count:', food_item)
-            return food_item
         else: #if no nothing just return all food
             print("No login or quiz")
             return food.query.all()
     except Exception as e:
         print('error: ',  e)
     else:
-        pass
+        print(goals)
+        print(quizTime)
+        print(quizDiet)
+
+        # Translating quiz data to database syntax
+
+        if quizTime == '<20min':
+            validated_time = 20
+        elif quizTime == '<30min':
+            validated_time = 30  # less than 60
+        elif quizTime == '<1h' or '>1h':
+            validated_time = 60  # less than 60
+
+        # Translating quizDiet (Restriction) to ID
+        restriction_id = food_restriction.query.filter_by(restriction=quizDiet).first().id
+
+        # Translating quizDiet (Restriction) to ID
+        cuisine_id = food_category.query.filter_by(category=quizCuisine).first().id
+
+         #Need if statement to seperate > operator from <
+        if quizTime == '>1h':
+            food_item = food.query.filter(food.time > validated_time, food.restriction == restriction_id,
+                                          food.category == cuisine_id).all()
+        else:
+            food_item = food.query.filter(food.time <= validated_time, food.restriction == restriction_id,
+                                          food.category == cuisine_id).all()
+        print("Final filter")
+        final_filtered_food_item = [filtering for filtering in food_item if
+                                    filtering.goal1 in goals or filtering.goal2 in goals or filtering.goal3 in goals]
+
+        print(final_filtered_food_item)
+        print('DEBUG NOW')
+        # DEBUG
+        for i in final_filtered_food_item:
+            print()
+            print('Title: ', i.title)
+            print('Cooking Time: ', i.cooking_time)
+            print('category: ', i.category)
+            print('goal1: ', i.goal1)
+            print('goal2: ', i.goal2)
+            print('goal3: ', i.goal3)
+            print()
+
+        return final_filtered_food_item
 
 @app.route('/test')
 def test():
@@ -472,7 +515,7 @@ def test():
 @app.route('/food_items2')
 def display_food_items2():
     # Query the food table to retrieve all food items
-    food_items = food.query.all()
+    food_items = return_food_on_quiz()
     favourite_list = None
     #Get user favourite list
     if session.get('logged_in'):
@@ -490,14 +533,14 @@ def quizPage():
         goal1 = None
         goal2 = None
         goal3 = None
-        
+
         if len(selected_goals) >= 1:
             goal1 = selected_goals[0]
         if len(selected_goals) >= 2:
             goal2 = selected_goals[1]
         if len(selected_goals) >= 3:
             goal3 = selected_goals[2]
-    
+
         # Process the form data and save it to the database (replace with your logic)
         if current_user.is_authenticated:
             result = TestResults(
@@ -509,13 +552,13 @@ def quizPage():
                 goal2=goal2,
                 goal3=goal3
             )
-            
+
             db.session.add(result)
             db.session.commit()
             current_user.test_results = result.id
             db.session.commit()
             flash('Quiz submitted successfully!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('display_food_items2'))
         else:
             session['quiz_choices'] = {
                 'time': form.time.data,
@@ -528,7 +571,7 @@ def quizPage():
             }
             print(session['quiz_choices'])
             flash('Quiz submitted successfully!', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('display_food_items2'))
 
     return render_template('quiz.html', form=form)
 
