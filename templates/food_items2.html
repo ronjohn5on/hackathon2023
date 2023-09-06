@@ -82,6 +82,7 @@ img{
                             <p class="card-text">Cooking Time: {{ food_item.cooking_time }} minutes</p>
                             <p class="card-text">Ingredient: {{ food_item.ingredients.ingredient_name }}</p>
                             <p class="card-text">Category: {{ food_item.categories.category }}</p>
+
                             <a href="/food/{{food_item.id}}">Learn More</a>
                             {% if favourite_list != None %}
                             {% if food_item.id in favourite_list %}
@@ -93,6 +94,10 @@ img{
                             {% else %}
                             <a href="/login">Please Login to Favourite</a>
                             {% endif %}
+
+                            <p class="card-text">Time of Day: {{ food_item.times.time }}</p>
+                            <p class="card-text">Dietary Restrictions: {{ food_item.restrictions.restriction }}</p>
+
                         </div>
                     </div>
                 </div>

@@ -4,14 +4,16 @@ from app import *
 from models.users.login import LoginForm
 from models.users.register import RegistrationForm, ProfileForm
 from models.users.users import Users
-from models.food.food_item import food, ingredient, food_category
+from models.food.food_item import food, ingredient, food_category, food_time, food_restriction
 from models.favourite.favourite import Favourites
+from models.results.test_results import TestResults
 from sqlalchemy import func, desc
 import random
 import string
 from forms import *
 from flask_session import Session
 import bcrypt
+from forms import quiz
 
 
 
@@ -56,6 +58,42 @@ def create_food_category():
             db.session.add(category2)
             db.session.commit()
 
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
+def create_food_restriction():
+     with app.app_context():
+        existing = food_restriction.query.all()
+        if not existing:
+            restriction1 = food_restriction(restriction="Vegetarian")
+            restriction2 = food_restriction(restriction="Halal")
+            restriction3 = food_restriction(restriction="NIL")
+            db.session.add(restriction1)
+            db.session.add(restriction2)
+            db.session.add(restriction3)
+            db.session.commit()
+
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
 def create_food():
     with app.app_context():
         existing = food.query.all()
@@ -65,52 +103,54 @@ def create_food():
                 cooking_time=30,
                 ingredient = 1,
                 category = 2,
+                time = 2,
+                restriction = 3,
                 goal1="Goal 1",
                 goal2="Goal 2",
                 goal3="Goal 3",
                 image = "chicken_rice.webp",
                 cooking_direction = '''
                 Ingredients:
-    
+
                 For the Chicken:
                 - 1 whole chicken (about 3-4 pounds)
                 - 1 thumb-sized piece of ginger, peeled and sliced
                 - 2-3 cloves garlic, peeled
                 - Salt, to taste
                 - Water, enough to cover the chicken
-    
+
                 For the Rice:
                 - 2 cups jasmine rice (or any long-grain rice)
                 - 2 1/2 cups chicken broth (from cooking the chicken)
                 - 1 thumb-sized piece of ginger, peeled and minced
                 - 2-3 cloves garlic, minced
                 - Salt, to taste
-    
+
                 For the Sauce:
                 - Soy sauce
                 - Sesame oil
                 - Chili sauce (optional)
-    
+
                 Instructions:
-    
+
                 1. Rinse the rice under cold water until the water runs clear. Drain and set aside.
-    
+
                 2. In a large pot, bring enough water to a boil to submerge the whole chicken. Add the ginger, garlic, and salt to the boiling water.
-    
+
                 3. Carefully add the whole chicken to the boiling water, breast-side down. Cover the pot, reduce the heat to a simmer, and cook for about 40-50 minutes or until the chicken is fully cooked. You can check for doneness by inserting a knife into the thigh; the juices should run clear.
-    
+
                 4. Once the chicken is cooked, remove it from the pot and place it in a bowl of ice water to cool quickly. This helps to retain the chicken's tenderness and flavor. Once cooled, rub the chicken with a little salt and sesame oil. Set it aside.
-    
+
                 5. While the chicken is cooling, use the chicken broth you cooked the chicken in to prepare the rice. In a separate pot, heat a little vegetable oil and sauté the minced ginger and garlic until fragrant. Add the rice and stir for a couple of minutes.
-    
+
                 6. Pour in the chicken broth, and bring it to a boil. Reduce the heat to low, cover the pot, and simmer for about 15-20 minutes or until the rice is cooked and the liquid is absorbed. Fluff the rice with a fork.
-    
+
                 7. To serve, slice the chicken into bite-sized pieces.
-    
+
                 8. Prepare the dipping sauce by mixing soy sauce, a bit of sesame oil, and chili sauce (if desired) to taste. You can also add some chopped fresh cilantro and green onions for extra flavor.
-    
+
                 9. Serve the sliced chicken on a plate with a side of chicken rice and the dipping sauce.
-    
+
                 Enjoy your homemade chicken rice! This dish is delicious and comforting, with tender chicken and fragrant rice, complemented by the flavorful dipping sauce.
                 '''
 
@@ -120,17 +160,19 @@ def create_food():
                 cooking_time=10,
                 ingredient = 2,
                 category = 1,
+                time = 1,
+                restriction = 3,
                 goal1="Goal 1",
                 goal2="Goal 2",
                 goal3="Goal 3",
                 image = "spagehti.jpg",
                 cooking_direction='''
                     Ingredients:
-        
+
                     For the Spaghetti:
                     - 8 ounces (about 1/2 pound) of spaghetti
                     - Salt, for boiling water
-        
+
                     For the Tomato Sauce:
                     - 1 can (28 ounces) of crushed tomatoes
                     - 2 cloves garlic, minced
@@ -142,23 +184,23 @@ def create_food():
                     - Red pepper flakes (optional, for heat)
                     - Fresh basil leaves, for garnish (optional)
                     - Grated Parmesan cheese, for topping (optional)
-        
+
                     Instructions:
-        
+
                     1. Bring a large pot of salted water to a boil. Add the spaghetti and cook according to the package instructions until al dente. Drain and set aside.
-        
+
                     2. In a large skillet or saucepan, heat the olive oil over medium heat. Add the minced garlic and chopped onion. Sauté for about 2-3 minutes or until the onion becomes translucent.
-        
+
                     3. Add the crushed tomatoes to the skillet, along with dried basil, dried oregano, salt, pepper, and red pepper flakes if you like it spicy. Stir to combine.
-        
+
                     4. Reduce the heat to low and let the sauce simmer for about 15-20 minutes, stirring occasionally. This allows the flavors to meld and the sauce to thicken.
-        
+
                     5. Taste the sauce and adjust the seasoning as needed.
-        
+
                     6. To serve, divide the cooked spaghetti among plates, ladle the tomato sauce over the spaghetti, and garnish with fresh basil leaves and grated Parmesan cheese if desired.
-        
+
                     7. Enjoy your homemade spaghetti with tomato sauce!
-        
+
                     This classic spaghetti recipe is simple and delicious. You can customize it by adding cooked meatballs, sausages, or vegetables to the sauce if you prefer. Adjust the seasonings to your taste and enjoy!
                     '''
 
@@ -273,12 +315,32 @@ def register():
         # Hash the password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        # Create a new user object
-        new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+        # Check if there are quiz choices stored in the session
+        quiz_choices = session.get('quiz_choices')
+        if quiz_choices:
+            # Create a new TestResults record and associate it with the user
+            result = TestResults(
+                time=quiz_choices['time'],
+                diet=quiz_choices['diet'],
+                cuisine=quiz_choices['cuisine'],
+                category=quiz_choices['category']
+            )
+            db.session.add(result)
+            db.session.commit()
 
-        # Add the new user to the database
-        db.session.add(new_user)
-        db.session.commit()
+            # Create a new user object
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture, test_results=result.id)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
+            # Remove the quiz choices from the session
+            session.pop('quiz_choices')
+
+        else:
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
 
         flash('Registration successful! Please verify your email before logging in!', category='alert-success')
         return redirect(url_for('login'))
@@ -375,9 +437,30 @@ def display_food_items2():
 
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
-    quizForm = quiz(request.form)
+    form = quiz()
 
-    return render_template('quiz.html',form=quizForm)
+    if form.validate_on_submit():
+        # Process the form data and save it to the database (replace with your logic)
+        if current_user.is_authenticated:
+            result = TestResults(time=form.time.data, diet=form.diet.data, cuisine=form.cuisine.data, category=form.category.data)
+            db.session.add(result)
+            db.session.commit()
+            current_user.test_results = result.id
+            db.session.commit()
+        else:
+            session['quiz_choices'] = {
+                'time': form.time.data,
+                'diet': form.diet.data,
+                'cuisine': form.cuisine.data,
+                'category': form.category.data
+
+            }
+            print(session['quiz_choices'])
+
+        flash('Quiz submitted successfully!', 'success')
+        return redirect(url_for('home'))
+
+    return render_template('quiz.html', form=form)
 
 @app.route('/profile')
 @login_required
@@ -398,5 +481,7 @@ if __name__ == '__main__':
         db.create_all()
         create_ingredient()
         create_food_category()
+        create_food_time()
+        create_food_restriction()
         create_food()
     app.run(debug=True)

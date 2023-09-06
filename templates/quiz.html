@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block title %}NutriGuide - Quiz{% endblock %} {% block content %} 
+{% extends "base.html" %}
+{% block title %}NutriGuide - Quiz{% endblock %}
+{% block content %}
 {% from "includes/_formHelper.html" import render_field %}
 
 <header>
@@ -14,7 +16,8 @@
     <hr>
 </header>
 
-<form method="POST" action="" style="margin:auto;width: 60%;" class="pb-5">
+<form method="POST" action="{{ url_for('quizPage') }}" style="margin:auto;width: 60%;" class="pb-5">
+    {{ form.csrf_token }}
     <div class="form-group pb-4">
         {{ render_field(form.time, class="form-control") }}
     </div>
@@ -29,4 +32,4 @@
     </div>
     <input type="submit" value="Submit" class="btn btn-primary"/>
 </form>
-{%endblock%}
+{% endblock %}
