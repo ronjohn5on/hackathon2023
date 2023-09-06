@@ -4,6 +4,8 @@ from app import *
 from models.users.login import LoginForm
 from models.users.register import RegistrationForm, ProfileForm
 from models.users.users import Users
+from models.food.food_item import food, ingredient
+from models.favourite.favourite import Favourites
 from sqlalchemy import func, desc
 import random
 import string
@@ -54,6 +56,54 @@ def home():
 
 
     return render_template('home.html')
+
+
+@app.route('/favouriteHandler/<int:food_id>')
+def favouriteHandler(food_id):
+    if not session.get('logged_in'):
+        return redirect(url_for('register'))
+
+    try:
+        food_item = food.query.filter_by(id=food_id).first()
+    except Exception as e:
+        print("Error has occured,"), e
+    else:
+        #if food item exist
+
+        #Get the account id
+        account_id = Users.query.filter_by(username=session.get('username')).first().id
+
+        # Check that the food is not already favourited
+        favourited_questionmark = Favourites.query.filter_by(account_id_foreign_key=account_id, food_id_foreign_key=food_id).first()
+
+        if not favourited_questionmark:
+            newFavourite = Favourites(account_id_foreign_key=account_id, food_id_foreign_key=food_id) #Adding new favourite
+            # Add the new user to the database
+            db.session.add(newFavourite)
+            db.session.commit()
+            return 'new favourited'
+        else:
+            return 'this item already favourited'
+
+    return 'not favourited'
+
+@app.route('/favourite') #Show favourite
+def favourite():
+    if not session.get('logged_in'):
+        return redirect(url_for('register'))
+
+    try:
+        account_id = Users.query.filter_by(username=session.get('username')).first().id
+        favourites = Favourites.query.filter_by(account_id_foreign_key=account_id).all()
+    except Exception as e:
+        return e
+    else:
+        all_food = []
+        for data in favourites:
+            all_food.append(data.food_id_foreign_key)
+        print(all_food)
+    return 'Favourite page'
+
 
 @app.route('/bmi')
 def bmiCal():
