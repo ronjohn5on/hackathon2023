@@ -4,7 +4,7 @@ from app import *
 from models.users.login import LoginForm
 from models.users.register import RegistrationForm, ProfileForm
 from models.users.users import Users
-from models.food.food_item import food, ingredient
+from models.food.food_item import food, ingredient, food_category
 from models.favourite.favourite import Favourites
 from sqlalchemy import func, desc
 import random
