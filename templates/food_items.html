@@ -7,6 +7,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 /* Style table header */
@@ -37,7 +38,22 @@ table td img {
 }
 </style>
 {% endblock %}
-<table>
+<header>
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="text-center my-5">
+                <h1 class="display-5 fw-bolder mb-2">List of Dishes</h1>
+                <p class="lead mb-4">
+                    Our list of healthier food that you can cook
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr>
+</header>
+
+<table >
     <thead>
         <tr>
             <th>Title</th>
