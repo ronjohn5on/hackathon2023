@@ -163,10 +163,8 @@ def quiz():
 
 @app.route('/profile')
 @login_required
-def profile(id):
-    user = Users.query.get(id)
-    if user:
-        return render_template('profile.html', user=user)
+def profile():
+    return render_template('profile.html')
 
 @app.errorhandler(404)
 def url_error(error):
