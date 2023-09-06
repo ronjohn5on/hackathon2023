@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}"/>
+{% endblock %}
+
+<div class="profile-container">
+    <h1>Profile</h1>
+    <p>Username: {{ current_user.username }}</p>
+    <p>Email: {{ current_user.email }}</p>
+    {% if current_user.profile_picture %}
+    <img src="{{ url_for('static', filename='images/' + current_user.profile_picture) }}" alt="Profile Picture">
+    {% endif %}
+
+    <h2>Update Details</h2>
+{% endblock %}

@@ -211,7 +211,10 @@ def logout():
 def quiz():
     return render_template('quiz.html')
 
-
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html')
 
 @app.errorhandler(404)
 def url_error(error):
