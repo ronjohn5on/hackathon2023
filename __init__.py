@@ -154,9 +154,8 @@ def favourite():
     return 'Favourite page'
 
 
-@app.route('/bmi')
+@app.route('/bmi',methods=['GET', 'POST'])
 def bmiCal():
-    form = bmi()
     return render_template('bmi.html')
 
 # Account Management
@@ -257,9 +256,11 @@ def display_food_items():
     food_items = food.query.all()
     return render_template('food_items.html', food_items=food_items)
 
-@app.route('/quiz')
-def quiz():
-    return render_template('quiz.html')
+@app.route('/quiz',methods=['GET', 'POST'])
+def quizPage():
+    quizForm = quiz(request.form)
+    
+    return render_template('quiz.html',form=quizForm)
 
 @app.route('/profile')
 @login_required
