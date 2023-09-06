@@ -323,7 +323,10 @@ def register():
                 time=quiz_choices['time'],
                 diet=quiz_choices['diet'],
                 cuisine=quiz_choices['cuisine'],
-                category=quiz_choices['category']
+                category=quiz_choices['category'],
+                goal1=quiz_choices['goal1'],
+                goal2=quiz_choices['goal2'],
+                goal3=quiz_choices['goal3']
             )
             db.session.add(result)
             db.session.commit()
@@ -334,7 +337,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             # Remove the quiz choices from the session
-            session.pop('quiz_choices')
+            session.pop('quiz_choices', None)
 
         else:
             new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
@@ -440,25 +443,49 @@ def quizPage():
     form = quiz()
 
     if form.validate_on_submit():
+        selected_goals = form.goals.data
+        goal1 = None
+        goal2 = None
+        goal3 = None
+        
+        if len(selected_goals) >= 1:
+            goal1 = selected_goals[0]
+        if len(selected_goals) >= 2:
+            goal2 = selected_goals[1]
+        if len(selected_goals) >= 3:
+            goal3 = selected_goals[2]
+    
         # Process the form data and save it to the database (replace with your logic)
         if current_user.is_authenticated:
-            result = TestResults(time=form.time.data, diet=form.diet.data, cuisine=form.cuisine.data, category=form.category.data)
+            result = TestResults(
+                time=form.time.data,
+                diet=form.diet.data,
+                cuisine=form.cuisine.data,
+                category=form.category.data,
+                goal1=goal1,
+                goal2=goal2,
+                goal3=goal3
+            )
+            
             db.session.add(result)
             db.session.commit()
             current_user.test_results = result.id
             db.session.commit()
+            flash('Quiz submitted successfully!', 'success')
+            return redirect(url_for('home'))
         else:
             session['quiz_choices'] = {
                 'time': form.time.data,
                 'diet': form.diet.data,
                 'cuisine': form.cuisine.data,
-                'category': form.category.data
-
+                'category': form.category.data,
+                'goal1': goal1,
+                'goal2': goal2,
+                'goal3': goal3
             }
             print(session['quiz_choices'])
-
-        flash('Quiz submitted successfully!', 'success')
-        return redirect(url_for('home'))
+            flash('Quiz submitted successfully!', 'success')
+            return redirect(url_for('home'))
 
     return render_template('quiz.html', form=form)
 
