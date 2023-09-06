@@ -4,14 +4,16 @@ from app import *
 from models.users.login import LoginForm
 from models.users.register import RegistrationForm, ProfileForm
 from models.users.users import Users
-from models.food.food_item import food, ingredient, food_category
+from models.food.food_item import food, ingredient, food_category, food_time, food_restriction
 from models.favourite.favourite import Favourites
+from models.results.test_results import TestResults
 from sqlalchemy import func, desc
 import random
 import string
 from forms import *
 from flask_session import Session
 import bcrypt
+from forms import quiz
 
 
 
@@ -56,6 +58,42 @@ def create_food_category():
             db.session.add(category2)
             db.session.commit()
 
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
+def create_food_restriction():
+     with app.app_context():
+        existing = food_restriction.query.all()
+        if not existing:
+            restriction1 = food_restriction(restriction="Vegetarian")
+            restriction2 = food_restriction(restriction="Halal")
+            restriction3 = food_restriction(restriction="NIL")
+            db.session.add(restriction1)
+            db.session.add(restriction2)
+            db.session.add(restriction3)
+            db.session.commit()
+
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
 def create_food():
     with app.app_context():
         existing = food.query.all()
@@ -65,6 +103,8 @@ def create_food():
                 cooking_time=30,
                 ingredient = 1,
                 category = 2,
+                time = 2,
+                restriction = 3,
                 goal1="Goal 1",
                 goal2="Goal 2",
                 goal3="Goal 3",
@@ -75,6 +115,8 @@ def create_food():
                 cooking_time=10,
                 ingredient = 2,
                 category = 1,
+                time = 1,
+                restriction = 3,
                 goal1="Goal 1",
                 goal2="Goal 2",
                 goal3="Goal 3",
@@ -264,9 +306,30 @@ def display_food_items2():
 
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
-    quizForm = quiz(request.form)
-    
-    return render_template('quiz.html',form=quizForm)
+    form = quiz()
+
+    if form.validate_on_submit():
+        # Process the form data and save it to the database (replace with your logic)
+        if current_user.is_authenticated:
+            result = TestResults(time=form.time.data, diet=form.diet.data, cuisine=form.cuisine.data, category=form.category.data)
+            db.session.add(result)
+            db.session.commit()
+            current_user.test_results = result.id
+            db.session.commit()
+        else:
+            session['quiz_choices'] = {
+                'time': form.time.data,
+                'diet': form.diet.data,
+                'cuisine': form.cuisine.data,
+                'category': form.category.data
+            
+            }
+            print(session['quiz_choices'])
+
+        flash('Quiz submitted successfully!', 'success')
+        return redirect(url_for('home'))
+
+    return render_template('quiz.html', form=form)
 
 @app.route('/profile')
 @login_required
@@ -287,5 +350,7 @@ if __name__ == '__main__':
         db.create_all()
         create_ingredient()
         create_food_category()
+        create_food_time()
+        create_food_restriction()
         create_food()
     app.run(debug=True)

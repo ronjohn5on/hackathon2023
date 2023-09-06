@@ -10,6 +10,16 @@ class food_category(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     category = db.Column(db.String(120))
 
+class food_time(db.Model):
+    __tablename__ = 'food_time'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    time = db.Column(db.String(120))
+
+class food_restriction(db.Model):
+    __tablename__ = 'food_restriction'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    restriction = db.Column(db.String(120))
+
 class food(db.Model):
     __tablename__ = 'food'  # Specify the table name explicitly
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -17,6 +27,8 @@ class food(db.Model):
     cooking_time = db.Column(db.Integer, nullable=False)
     ingredient = db.Column(db.Integer, db.ForeignKey(ingredient.id), nullable=False)
     category = db.Column(db.Integer, db.ForeignKey(food_category.id), nullable=False)
+    time = db.Column(db.Integer, db.ForeignKey(food_time.id), nullable=False)
+    restriction = db.Column(db.Integer, db.ForeignKey(food_restriction.id), nullable=False)
     goal1 = db.Column(db.String(120), default=None)
     goal2 = db.Column(db.String(120), default=None)
     goal3 = db.Column(db.String(120), default=None)
@@ -24,3 +36,5 @@ class food(db.Model):
 
     ingredients = db.relationship('ingredient', backref='food', lazy=True)
     categories = db.relationship('food_category', backref='food', lazy=True)
+    times = db.relationship('food_time', backref='food', lazy=True)
+    restrictions = db.relationship('food_restriction', backref='food', lazy=True)
