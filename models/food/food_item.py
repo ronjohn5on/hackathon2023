@@ -25,6 +25,7 @@ class food(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(120), nullable = False)
     cooking_time = db.Column(db.Integer, nullable=False)
+    cooking_direction = db.Column(db.String(10000), nullable=False)
     ingredient = db.Column(db.Integer, db.ForeignKey(ingredient.id), nullable=False)
     category = db.Column(db.Integer, db.ForeignKey(food_category.id), nullable=False)
     time = db.Column(db.Integer, db.ForeignKey(food_time.id), nullable=False)

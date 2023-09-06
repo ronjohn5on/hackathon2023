@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}SaveThePlanet - Login{% endblock %}
+{% block content %}
+
+{% block style %}
+{% endblock %}
+{% for food in favourited %}
+<h1><a href="/food/{{food.id}}">{{food.title}}</a></h1>
+{% endfor %}
+{% endblock %}
+

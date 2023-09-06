@@ -69,7 +69,6 @@ img{
 {% endblock %}
 <div class="container">
     <div class="row">
-        {% for food_item in food_items %}
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
                 <div class="row no-gutters">
@@ -80,10 +79,9 @@ img{
                         <div class="card-body">
                             <h5 class="card-title">{{ food_item.title }}</h5>
                             <p class="card-text">Cooking Time: {{ food_item.cooking_time }} minutes</p>
-                            <p class="card-text">Ingredient: {{ food_item.ingredients.ingredient_name }}</p>
                             <p class="card-text">Category: {{ food_item.categories.category }}</p>
 
-                            <a href="/food/{{food_item.id}}">Learn More</a>
+
                             {% if favourite_list != None %}
                             {% if food_item.id in favourite_list %}
                             <a href="/favouriteHandler/{{food_item.id}}">Unfavourite</a>
@@ -94,13 +92,15 @@ img{
                             {% else %}
                             <a href="/login">Please Login to Favourite</a>
                             {% endif %}
-
                         </div>
                     </div>
                 </div>
             </div>
+                    <p class="card-text">{{ food_item.cooking_direction }}</p>
+
         </div>
-        {% endfor %}
     </div>
+
+
 </div>
 {% endblock %}
