@@ -36,6 +36,23 @@ def generate_token():
 @app.route('/')
 @app.route('/home')
 def home():
+    if not session.get('logged_in'):
+        pass
+        #return redirect(url_for('register'))
+
+    try:
+        #get all the question answer here by logged username
+        pass
+    except Exception as e:
+        return 'Error occurred,', e
+    else:
+        pass
+        #Get all the food item
+        #SELECT * FROM diet_plan WHERE 'requirement' = answer
+
+
+
+
     return render_template('home.html')
 
 @app.route('/bmi')
@@ -126,6 +143,11 @@ def login():
             return redirect(url_for('login'))
 
     return render_template('login.html', form=form)
+
+
+
+
+
 
 @app.route('/logout')
 def logout():
