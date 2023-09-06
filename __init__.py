@@ -442,7 +442,7 @@ def return_food_on_quiz():
             elif quizTime == '>1h':
                 validated_time = 60
 
-            
+            quizDiet
 
 
 
