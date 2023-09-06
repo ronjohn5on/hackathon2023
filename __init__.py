@@ -232,12 +232,32 @@ def register():
         # Hash the password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        # Create a new user object
-        new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+        # Check if there are quiz choices stored in the session
+        quiz_choices = session.get('quiz_choices')
+        if quiz_choices:
+            # Create a new TestResults record and associate it with the user
+            result = TestResults(
+                time=quiz_choices['time'],
+                diet=quiz_choices['diet'],
+                cuisine=quiz_choices['cuisine'],
+                category=quiz_choices['category']
+            )
+            db.session.add(result)
+            db.session.commit()
 
-        # Add the new user to the database
-        db.session.add(new_user)
-        db.session.commit()
+            # Create a new user object
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture, test_results=result.id)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
+            # Remove the quiz choices from the session
+            session.pop('quiz_choices')
+        
+        else:
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
 
         flash('Registration successful! Please verify your email before logging in!', category='alert-success')
         return redirect(url_for('login'))
