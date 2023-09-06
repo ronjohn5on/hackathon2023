@@ -8,12 +8,20 @@
         <li class="nav-item">
           <a class="nav-link active" href="/quiz">Quiz</a>
         </li>
+        {% if not current_user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" href="#">link</a>
+          <a class="nav-link active" href="/login">Login</a>
         </li>
+        {% else %}
         <li class="nav-item">
-          <a class="nav-link active" href="#">Link</a>
+          <a class="nav-link active" href="/logout">Logout</a>
         </li>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link active" href="/register">Register</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link active" href="#">Link</a>
         </li>

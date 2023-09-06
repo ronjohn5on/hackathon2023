@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}SaveThePlanet - Register{% endblock %}
+{% block content %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}"/>
+{% endblock %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert {{category}} alert-dismissible fade show" role="alert">
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+    
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <form method="POST" action="{{ url_for('register') }}">
+        <h1>Register your account here</h1>
+        {{ form.csrf_token }}
+        {{ form.email.label }} {{ form.email }}<br>
+        {{ form.username.label }} {{ form.username }}<br>
+        {% for err in form.username.errors %}
+        <p style="color: red; font-size: 15px;;">{{err}}</p>
+        {% endfor %}
+        {{ form.password.label }} {{ form.password }}<br>
+        {% for err in form.password.errors %}
+        <p style="color: red; font-size: 15px;;">{{err}}</p>
+        {% endfor %}
+        {{ form.confirm_password.label }} {{ form.confirm_password }}<br>
+        {% for err in form.confirm_password.errors %}
+        <p style="color: red; font-size: 15px;;">{{err}}</p>
+        {% endfor %}
+        {{ form.submit }}
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}

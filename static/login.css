@@ -1,0 +1,156 @@
+/* Styles for the login page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    padding-top: 20px;
+}
+
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.flash-messages li {
+    color: #FF0000;
+    text-align: center;
+}
+
+form {
+    width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+form h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: left;
+    --tw-text-opacity: 1;
+    color: rgb(17 24 39 / var(--tw-text-opacity));
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 35px;
+}
+
+form label {
+    font-size: .875rem;
+    line-height: 1.25rem;
+    margin-bottom: .5rem;
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+}
+
+form span a{
+    font-size: .875rem;
+    line-height: 1.25rem;
+    margin-bottom: .5rem;
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    margin-left: 280px;
+    color: #3e8e41;
+}
+
+form span a:hover{
+    transition: color 0.3s ease;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+form input[type="submit"] {
+    background-color: rgb(5 150 105);
+    border-radius: .5rem;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    padding-top: .625rem;
+    padding-bottom: .625rem;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    opacity: 1;
+    background-color: rgb(4 120 87);
+}
+
+form h2{
+    margin-top: 1.0rem;
+    margin-bottom: 0.5rem;
+}
+
+form h2 a{
+    position: relative;
+    font-size: 1.10rem;
+    line-height: 1.25rem;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    color: #3e8e41;
+    text-align: center;
+    margin-top: 2.0rem;
+    margin-left: 176px;
+}
+
+form h2 a:hover{
+    transition: color 0.3s ease;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+form button:active {
+    background-color: #3e8e41;
+}
+
+form .form-footer {
+    margin-top: 15px;
+    text-align: center;
+}
+
+form .form-footer a {
+    color: #555;
+    text-decoration: none;
+}
+
+form .form-footer a:hover {
+    text-decoration: underline;
+}
+
+.g-recaptcha {
+    transform:scale(1.0);
+    transform-origin:0 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

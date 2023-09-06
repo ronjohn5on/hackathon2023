@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}SaveThePlanet - Login{% endblock %}
+{% block content %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}"/>
+{% endblock %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert {{category}} alert-dismissible fade show" role="alert">
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}" id="loginForm">
+        <h1>Sign in into your account here</h1>
+        {{ form.csrf_token }}
+        {{ form.email.label }} {{ form.email(id='email') }}<br>
+        {% for err in form.email.errors %}
+        <p style="color: red; font-size: 15px;;">{{err}}</p>
+        {% endfor %}
+        {{ form.password.label }}{{ form.password(id='password') }}<br>
+        {{ form.submit }}
+        <h2><a href="{{ url_for('register') }}">Register here</a></h2>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
