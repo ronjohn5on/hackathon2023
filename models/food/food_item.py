@@ -10,8 +10,9 @@ class food(db.Model):
     goal3 = db.Column(db.String(120), default=None)
 
 class ingredient(db.Model):
-    __table__ = 'ingredient'
+    __tablename__ = 'ingredient'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     food_id_foreign_key = db.Column(db.Integer)
-    ingredient_name  = db.Column(db.String(120))
+    ingredient_name = db.Column(db.String(120))
 
 
