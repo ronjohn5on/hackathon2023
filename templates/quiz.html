@@ -8,15 +8,15 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <div class="text-center my-5">
-                <h1 class="display-5 fw-bolder mb-2">Quiz???</h1>
-                <p class="lead mb-4">Select what meals suit your lifestyle based on our questions</p>
+                <h1 class="display-5 fw-bolder mb-2">Quiz</h1>
+                <p class="lead mb-4">Select what meals suit you based on questions about yourself</p>
             </div>
         </div>
     </div>
     <hr>
 </header>
 
-<form method="POST" action="{{ url_for('quizPage') }}" style="margin:auto;width: 60%;" class="pb-5">
+<form method="POST" action="{{ url_for('quizPage') }}" style="margin:auto;width: 60%;" class="pb-5 lead">
     {{ form.csrf_token }}
     <div class="form-group pb-4">
         {{ render_field(form.time, class="form-control") }}
