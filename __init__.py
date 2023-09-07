@@ -4,14 +4,16 @@ from app import *
 from models.users.login import LoginForm
 from models.users.register import RegistrationForm, ProfileForm
 from models.users.users import Users
-from models.food.food_item import food, ingredient, food_category
+from models.food.food_item import food, ingredient, food_category, food_time, food_restriction
 from models.favourite.favourite import Favourites
+from models.results.test_results import TestResults
 from sqlalchemy import func, desc
 import random
 import string
 from forms import *
 from flask_session import Session
 import bcrypt
+from forms import quiz
 
 
 
@@ -37,7 +39,7 @@ def generate_token():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=32))
 
 def create_ingredient():
-     with app.app_context():
+    with app.app_context():
         existing = ingredient.query.all()
         if not existing:
             ingredient1 = ingredient(ingredient_name="Rice")
@@ -56,33 +58,157 @@ def create_food_category():
             db.session.add(category2)
             db.session.commit()
 
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
+def create_food_restriction():
+     with app.app_context():
+        existing = food_restriction.query.all()
+        if not existing:
+            restriction1 = food_restriction(restriction="Vegetarian")
+            restriction2 = food_restriction(restriction="Halal")
+            restriction3 = food_restriction(restriction="NIL")
+            db.session.add(restriction1)
+            db.session.add(restriction2)
+            db.session.add(restriction3)
+            db.session.commit()
+
+def create_food_time():
+     with app.app_context():
+        existing = food_time.query.all()
+        if not existing:
+            time1 = food_time(time="Breakfast")
+            time2 = food_time(time="Lunch")
+            time3 = food_time(time="Dinner")
+            db.session.add(time1)
+            db.session.add(time2)
+            db.session.add(time3)
+            db.session.commit()
+
 def create_food():
     with app.app_context():
         existing = food.query.all()
         if not existing:
             food_item1 = food(
-                title="Chicken Rice",
+                title="Vegetarian Chicken Rice",
                 cooking_time=30,
                 ingredient = 1,
                 category = 2,
-                goal1="Goal 1",
-                goal2="Goal 2",
-                goal3="Goal 3",
-                image = "chicken_rice.webp"
+                time = 2,
+                restriction = 1,
+                goal1="Maximum Nutrition Meal",
+                goal2="Weightless Meal",
+                goal3="None",
+                image = "chicken_rice.webp",
+                cooking_direction = '''
+                Ingredients:
+
+                For the Chicken:
+                - 1 whole chicken (about 3-4 pounds)
+                - 1 thumb-sized piece of ginger, peeled and sliced
+                - 2-3 cloves garlic, peeled
+                - Salt, to taste
+                - Water, enough to cover the chicken
+
+                For the Rice:
+                - 2 cups jasmine rice (or any long-grain rice)
+                - 2 1/2 cups chicken broth (from cooking the chicken)
+                - 1 thumb-sized piece of ginger, peeled and minced
+                - 2-3 cloves garlic, minced
+                - Salt, to taste
+
+                For the Sauce:
+                - Soy sauce
+                - Sesame oil
+                - Chili sauce (optional)
+
+                Instructions:
+
+                1. Rinse the rice under cold water until the water runs clear. Drain and set aside.
+
+                2. In a large pot, bring enough water to a boil to submerge the whole chicken. Add the ginger, garlic, and salt to the boiling water.
+
+                3. Carefully add the whole chicken to the boiling water, breast-side down. Cover the pot, reduce the heat to a simmer, and cook for about 40-50 minutes or until the chicken is fully cooked. You can check for doneness by inserting a knife into the thigh; the juices should run clear.
+
+                4. Once the chicken is cooked, remove it from the pot and place it in a bowl of ice water to cool quickly. This helps to retain the chicken's tenderness and flavor. Once cooled, rub the chicken with a little salt and sesame oil. Set it aside.
+
+                5. While the chicken is cooling, use the chicken broth you cooked the chicken in to prepare the rice. In a separate pot, heat a little vegetable oil and sauté the minced ginger and garlic until fragrant. Add the rice and stir for a couple of minutes.
+
+                6. Pour in the chicken broth, and bring it to a boil. Reduce the heat to low, cover the pot, and simmer for about 15-20 minutes or until the rice is cooked and the liquid is absorbed. Fluff the rice with a fork.
+
+                7. To serve, slice the chicken into bite-sized pieces.
+
+                8. Prepare the dipping sauce by mixing soy sauce, a bit of sesame oil, and chili sauce (if desired) to taste. You can also add some chopped fresh cilantro and green onions for extra flavor.
+
+                9. Serve the sliced chicken on a plate with a side of chicken rice and the dipping sauce.
+
+                Enjoy your homemade chicken rice! This dish is delicious and comforting, with tender chicken and fragrant rice, complemented by the flavorful dipping sauce.
+                '''
+
             )
             food_item2 = food(
                 title="Spaghetti",
                 cooking_time=10,
                 ingredient = 2,
                 category = 1,
-                goal1="Goal 1",
-                goal2="Goal 2",
-                goal3="Goal 3",
-                image = "spagehti.jpg"
+                time = 1,
+                restriction = 3,
+                goal1="None",
+                goal2="Protein Meal",
+                goal3="None",
+                image = "spagehti.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    For the Spaghetti:
+                    - 8 ounces (about 1/2 pound) of spaghetti
+                    - Salt, for boiling water
+
+                    For the Tomato Sauce:
+                    - 1 can (28 ounces) of crushed tomatoes
+                    - 2 cloves garlic, minced
+                    - 1 small onion, finely chopped
+                    - 2 tablespoons olive oil
+                    - 1 teaspoon dried basil
+                    - 1 teaspoon dried oregano
+                    - Salt and pepper, to taste
+                    - Red pepper flakes (optional, for heat)
+                    - Fresh basil leaves, for garnish (optional)
+                    - Grated Parmesan cheese, for topping (optional)
+
+                    Instructions:
+
+                    1. Bring a large pot of salted water to a boil. Add the spaghetti and cook according to the package instructions until al dente. Drain and set aside.
+
+                    2. In a large skillet or saucepan, heat the olive oil over medium heat. Add the minced garlic and chopped onion. Sauté for about 2-3 minutes or until the onion becomes translucent.
+
+                    3. Add the crushed tomatoes to the skillet, along with dried basil, dried oregano, salt, pepper, and red pepper flakes if you like it spicy. Stir to combine.
+
+                    4. Reduce the heat to low and let the sauce simmer for about 15-20 minutes, stirring occasionally. This allows the flavors to meld and the sauce to thicken.
+
+                    5. Taste the sauce and adjust the seasoning as needed.
+
+                    6. To serve, divide the cooked spaghetti among plates, ladle the tomato sauce over the spaghetti, and garnish with fresh basil leaves and grated Parmesan cheese if desired.
+
+                    7. Enjoy your homemade spaghetti with tomato sauce!
+
+                    This classic spaghetti recipe is simple and delicious. You can customize it by adding cooked meatballs, sausages, or vegetables to the sauce if you prefer. Adjust the seasonings to your taste and enjoy!
+                    '''
+
             )
             db.session.add(food_item1)
             db.session.add(food_item2)
             db.session.commit()
+
 
 @app.route('/')
 @app.route('/home')
@@ -130,11 +256,12 @@ def favouriteHandler(food_id):
             # Add the new user to the database
             db.session.add(newFavourite)
             db.session.commit()
-            return 'new favourited'
         else:
-            return 'this item already favourited'
+            db.session.delete(favourited_questionmark)
+            db.session.commit()
 
-    return 'not favourited'
+    return redirect(request.referrer)
+
 
 @app.route('/favourite') #Show favourite
 def favourite():
@@ -147,11 +274,9 @@ def favourite():
     except Exception as e:
         return e
     else:
-        all_food = []
-        for data in favourites:
-            all_food.append(data.food_id_foreign_key)
-        print(all_food)
-    return 'Favourite page'
+        all_favourited = [i.food_id_foreign_key for i in favourites]
+        all_food = [i for i in food.query.all() if i.id in all_favourited]
+        return render_template('favourite.html', favourited=all_food)
 
 
 @app.route('/bmi',methods=['GET', 'POST'])
@@ -190,12 +315,35 @@ def register():
         # Hash the password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        # Create a new user object
-        new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+        # Check if there are quiz choices stored in the session
+        quiz_choices = session.get('quiz_choices')
+        if quiz_choices:
+            # Create a new TestResults record and associate it with the user
+            result = TestResults(
+                time=quiz_choices['time'],
+                diet=quiz_choices['diet'],
+                cuisine=quiz_choices['cuisine'],
+                category=quiz_choices['category'],
+                goal1=quiz_choices['goal1'],
+                goal2=quiz_choices['goal2'],
+                goal3=quiz_choices['goal3']
+            )
+            db.session.add(result)
+            db.session.commit()
 
-        # Add the new user to the database
-        db.session.add(new_user)
-        db.session.commit()
+            # Create a new user object
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture, test_results=result.id)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
+            # Remove the quiz choices from the session
+            session.pop('quiz_choices', None)
+
+        else:
+            new_user = Users(email=email, username=username, password=hashed_password, profile_picture=profile_picture)
+            # Add the new user to the database
+            db.session.add(new_user)
+            db.session.commit()
 
         flash('Registration successful! Please verify your email before logging in!', category='alert-success')
         return redirect(url_for('login'))
@@ -219,23 +367,23 @@ def login():
         user = Users.query.filter_by(email=email).first()
 
         if user:
-                if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-                    # Authentication successful, perform login
-                    # You can use session or Flask-Login for user session management
+            if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+                # Authentication successful, perform login
+                # You can use session or Flask-Login for user session management
 
-                    login_user(user)  # Set the user in the session
-                    session['username'] = user.username
-                    session['logged_in'] = True
-                    flash('Login successful!', category='alert-success')
-                    next_page = request.args.get('next') or url_for('home')
+                login_user(user)  # Set the user in the session
+                session['username'] = user.username
+                session['logged_in'] = True
+                flash('Login successful!', category='alert-success')
+                next_page = request.args.get('next') or url_for('home')
 
 
-                    if next_page == url_for('home'):
-                        return redirect(url_for('home'))
-                    # return redirect(next_page)
-                else:
-                    flash('Invalid credentials.', category='alert-danger')
-                    return redirect(url_for('login'))
+                if next_page == url_for('home'):
+                    return redirect(url_for('home'))
+                # return redirect(next_page)
+            else:
+                flash('Invalid credentials.', category='alert-danger')
+                return redirect(url_for('login'))
         else:
             flash('Invalid credentials.', category='alert-danger')
             return redirect(url_for('login'))
@@ -250,17 +398,182 @@ def logout():
     flash('You have been logged out.', category='alert-success')
     return redirect(url_for('home'))
 
+@app.route('/food/<int:id>')
+def food_details(id):
+    try:
+        food_item = food.query.filter_by(id=id).first()
+    except Exception as e:
+        return 'eroror is', e
+    else:
+        print("Food no error: ", food_item)
+
+        favourite_list = None
+        # Get user favourite list
+        if session.get('logged_in'):
+            account_id = Users.query.filter_by(username=session.get('username')).first().id
+            favourite_list = [i.food_id_foreign_key for i in
+                              Favourites.query.filter_by(account_id_foreign_key=account_id).all()]
+            print(favourite_list)
+
+        return render_template('food_details.html', food_item=food_item, favourite_list=favourite_list)
+
+
 @app.route('/food_items')
 def display_food_items():
     # Query the food table to retrieve all food items
     food_items = food.query.all()
     return render_template('food_items.html', food_items=food_items)
 
+def return_food_on_quiz():
+    try:
+        if session.get('logged_in'):
+            print("User logged in")
+
+
+            #Get test result id
+            test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+
+            #IF there is test result id
+            if test_results_id:
+                #Retrieve result based on test_results_id
+                test_results = TestResults.query.filter_by(id=test_results_id).first()
+
+                quizTime = test_results.time
+                quizDiet = test_results.diet
+                quizCuisine = test_results.cuisine
+                goals = [test_results.goal1, test_results.goal2, test_results.goal3]
+            else:
+                print("No result for logged in user, returning all food")
+                return food.query.all()
+
+        elif session.get('quiz_choices'):
+            print("Have quiz_choice")
+
+            data_holder = ['time','diet','cuisine','category', 'goal'] #For referrence
+            quizTime = session['quiz_choices']['time']
+            quizDiet = session['quiz_choices']['diet']
+            quizCuisine = session['quiz_choices']['cuisine']
+            goals = [session['quiz_choices']['goal1'],session['quiz_choices']['goal2'],session['quiz_choices']['goal3']]
+
+
+        else: #if no nothing just return all food
+            print("No login or quiz")
+            return food.query.all()
+    except Exception as e:
+        print('error: ',  e)
+    else:
+        print(goals)
+        print(quizTime)
+        print(quizDiet)
+
+        # Translating quiz data to database syntax
+
+        if quizTime == '<20min':
+            validated_time = 20
+        elif quizTime == '<30min':
+            validated_time = 30  # less than 60
+        elif quizTime == '<1h' or '>1h':
+            validated_time = 60  # less than 60
+
+        # Translating quizDiet (Restriction) to ID
+        restriction_id = food_restriction.query.filter_by(restriction=quizDiet).first().id
+
+        # Translating quizDiet (Restriction) to ID
+        cuisine_id = food_category.query.filter_by(category=quizCuisine).first().id
+
+         #Need if statement to seperate > operator from <
+        if quizTime == '>1h':
+            food_item = food.query.filter(food.time > validated_time, food.restriction == restriction_id,
+                                          food.category == cuisine_id).all()
+        else:
+            food_item = food.query.filter(food.time <= validated_time, food.restriction == restriction_id,
+                                          food.category == cuisine_id).all()
+        print("Final filter")
+        final_filtered_food_item = [filtering for filtering in food_item if
+                                    filtering.goal1 in goals or filtering.goal2 in goals or filtering.goal3 in goals]
+
+        print(final_filtered_food_item)
+        print('DEBUG NOW')
+        # DEBUG
+        for i in final_filtered_food_item:
+            print()
+            print('Title: ', i.title)
+            print('Cooking Time: ', i.cooking_time)
+            print('category: ', i.category)
+            print('goal1: ', i.goal1)
+            print('goal2: ', i.goal2)
+            print('goal3: ', i.goal3)
+            print()
+
+        return final_filtered_food_item
+
+@app.route('/test')
+def test():
+    return_food_on_quiz()
+    return 'testing'
+
+@app.route('/food_items2')
+def display_food_items2():
+    # Query the food table to retrieve all food items
+    food_items = return_food_on_quiz()
+    favourite_list = None
+    #Get user favourite list
+    if session.get('logged_in'):
+        account_id = Users.query.filter_by(username=session.get('username')).first().id
+        favourite_list = [i.food_id_foreign_key for i in Favourites.query.filter_by(account_id_foreign_key=account_id).all()]
+        print(favourite_list)
+    return render_template('food_items2.html', food_items=food_items, favourite_list=favourite_list)
+
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
-    quizForm = quiz(request.form)
-    
-    return render_template('quiz.html',form=quizForm)
+    form = quiz()
+
+    if form.validate_on_submit():
+        selected_goals = form.goals.data
+        goal1 = None
+        goal2 = None
+        goal3 = None
+
+        if len(selected_goals) >= 1:
+            goal1 = selected_goals[0]
+        if len(selected_goals) >= 2:
+            goal2 = selected_goals[1]
+        if len(selected_goals) >= 3:
+            goal3 = selected_goals[2]
+
+        # Process the form data and save it to the database (replace with your logic)
+        if current_user.is_authenticated:
+            result = TestResults(
+                time=form.time.data,
+                diet=form.diet.data,
+                cuisine=form.cuisine.data,
+                category=form.category.data,
+                goal1=goal1,
+                goal2=goal2,
+                goal3=goal3
+            )
+
+            db.session.add(result)
+            db.session.commit()
+            current_user.test_results = result.id
+            db.session.commit()
+            flash('Quiz submitted successfully!', 'success')
+            return redirect(url_for('display_food_items2'))
+        else:
+            session['quiz_choices'] = {
+                'time': form.time.data,
+                'diet': form.diet.data,
+                'cuisine': form.cuisine.data,
+                'category': form.category.data,
+                'goal1': goal1,
+                'goal2': goal2,
+                'goal3': goal3
+            }
+            print(session['quiz_choices'])
+            flash('Quiz submitted successfully!', 'success')
+            return redirect(url_for('display_food_items2'))
+
+    return render_template('quiz.html', form=form)
 
 @app.route('/profile')
 @login_required
@@ -281,5 +594,7 @@ if __name__ == '__main__':
         db.create_all()
         create_ingredient()
         create_food_category()
+        create_food_time()
+        create_food_restriction()
         create_food()
     app.run(debug=True)
