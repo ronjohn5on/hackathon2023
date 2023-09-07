@@ -19,7 +19,18 @@
         <p>Dietary Restrictions: {{ current_user.result.diet }}</p>
         <p>Which Cuisine: {{ current_user.result.cuisine }}</p>
         <p>Category of Food: {{ current_user.result.category }}</p>
-        <p>Goals:</p>
+        <p>Goals:
+            {% if current_user.result.goal1 %}
+                {{ current_user.result.goal1 }}<br>
+            {% endif %}
+            {% if current_user.result.goal2 %}
+                {{ current_user.result.goal2 }}<br>
+            {% endif %}
+            {% if current_user.result.goal3 %}
+                {{ current_user.result.goal3 }}<br>
+            {% endif %}
+        </p>
+        
         <ul>
             {% for goal in quiz_data.goal %}
                 <li>{{ goal }}</li>
