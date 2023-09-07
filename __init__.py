@@ -769,6 +769,29 @@ def display_food_items():
     food_items = food.query.all()
     return render_template('food_items.html', food_items=food_items)
 
+def quiz_check():
+    if session.get('logged_in'):
+        test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+        if test_results_id:
+            return True #If logged in user have test result
+        return False#If logged in user have no test result
+    elif session.get('quiz_choices'):
+        return True #If user is not logged in and have quiz
+    return False #If no quiz for not logged in user
+
+def getQuizAnswer():
+    if session.get('logged_in'):
+        if quiz_check():
+            test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+            return TestResults.query.filter_by(id=test_results_id).first()
+        else:
+            return None
+    elif session.get('quiz_choices'):
+        return session['quiz_choices']
+    return None
+
+
+
 def return_food_on_quiz():
     try:
         if session.get('logged_in'):
@@ -860,6 +883,7 @@ def test():
 @app.route('/food_items2')
 def display_food_items2():
     # Query the food table to retrieve all food items
+
     food_items = return_food_on_quiz()
     favourite_list = None
     #Get user favourite list
@@ -867,7 +891,7 @@ def display_food_items2():
         account_id = Users.query.filter_by(username=session.get('username')).first().id
         favourite_list = [i.food_id_foreign_key for i in Favourites.query.filter_by(account_id_foreign_key=account_id).all()]
         print(favourite_list)
-    return render_template('food_items2.html', food_items=food_items, favourite_list=favourite_list)
+    return render_template('food_items2.html', quiz_completed=quiz_check(), food_items=food_items, foodItemCount=len(food_items), favourite_list=favourite_list, quizAnswer=getQuizAnswer())
 
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
