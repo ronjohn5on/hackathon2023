@@ -31,3 +31,9 @@ class Users(db.Model):
 
     def get_email(self):
         return str(self.email)
+    
+    # def get_test_results(id):
+    #     user = Users.query.get(id)
+    #     if user:
+    #         return user.result
+    #     return None
