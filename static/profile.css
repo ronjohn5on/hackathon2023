@@ -1,17 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 .profile-container {
-    max-width: 600px;
-    margin: 0 auto;
+    display: inline-block;
+    width: 45%;
+    margin-right: 2%;
     padding: 20px;
     background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     text-align: center;
+    margin-left: 70px;
+    vertical-align: middle;
+}
+.quiz-container {
+    display: inline-block;
+    width: 45%;
+    padding: 20px;
+    vertical-align: top;
 }
 .user-name {
     font-size: 24px;
@@ -21,4 +29,23 @@ body {
 .contact-info {
     font-size: 18px;
     margin-bottom: 20px;
+}
+img {
+    width: 500px;
+}
+.box1{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    vertical-align: top;
+}
+.box2{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
 }

@@ -575,7 +575,7 @@ def quizPage():
 
     return render_template('quiz.html', form=form)
 
-@app.route('/profile')
+@app.route('/profile',methods=['GET', 'POST'])
 @login_required
 def profile():
     return render_template('profile.html')
