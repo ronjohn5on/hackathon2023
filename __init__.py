@@ -947,7 +947,16 @@ def quizPage():
 @app.route('/profile',methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html')
+    quiz_data = None  # Initialize quiz_data as None
+
+    if current_user.is_authenticated:
+        # Assuming the user's quiz data is associated with the 'result' attribute
+        quiz_data = current_user.result
+
+    if request.method == 'POST':
+        return redirect(url_for('quizPage'))
+    
+    return render_template('profile.html', quiz_data=quiz_data)
 
 @app.errorhandler(404)
 def url_error(error):
