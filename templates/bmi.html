@@ -14,13 +14,13 @@
 </header>
 
 
-    <div class=" pb-5 text-center" >
+    <div class=" pb-5 text-center lead" >
         <form method="POST" class="form-group p-2">
         <input style="width: 300px;" type="text" id="weight" placeholder="Please input your weight in Kg">
         <input style="width: 300px;" type="text" id="height" placeholder="Please input your height in cm">
         </form>
         
-        <div class="form-group p-2"><p id="result"></p></div>
+        <div class="form-group p-2 "><p id="result"></p></div>
         <button style="width: 200px;" onclick="bmiCal()">Calculate</button>
     </div>
     
@@ -46,9 +46,14 @@
         var weight = document.getElementById('weight').value;
         var height = document.getElementById('height').value;
         var height = height/100 ;
-        var bmi = weight*height**2;
-        // alert('your bmi is '+bmi);
-        document.getElementById('result').innerHTML = 'your BMI is '+bmi;
+        var bmi = weight/(height**2);
+        var bmi = bmi.toFixed(1);
+        
+        
+        document.getElementById('result').innerHTML = 'your BMI is '+bmi+'kg/m&#178';
+        
+
+
         return false;
     }
 
