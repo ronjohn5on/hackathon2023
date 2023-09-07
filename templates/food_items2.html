@@ -20,7 +20,7 @@
 
 /* Style for card title */
 .card-title {
-    font-size: 3rem; /* Make the title smaller */
+    font-size: 2rem; /* Make the title smaller */
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -68,7 +68,26 @@ img{
 </style>
 {% endblock %}
 <div class="container">
+    {% if quiz_completed %}
+    <br><br>
+
+    <h5 class="text-center">
+        <p>Time: {{quizAnswer.time}}, Diet: {{quizAnswer.diet}}, Cuisine: {{quizAnswer.cuisine}}
+        {% if quizAnswer.goal1 != None%}, goal1: {{quizAnswer.goal1}}{% endif %}
+        {% if quizAnswer.goal2 != None%}, goal2: {{quizAnswer.goal2}}{% endif %}
+        {% if quizAnswer.goal3 != None%}, goal3: {{quizAnswer.goal3}}{% endif %}</p></h5>
+    <h5 class="text-center"><a href="{{url_for('quizPage')}}">Click Here To Update</a></h5>
+    {% else %}
+    <br><br>
+    <h5 class="text-center"><a href="{{url_for('quizPage')}}">Please complete the quiz to get personalized food option!</a></h5>
+    {% endif %}
     <div class="row">
+
+        {% if foodItemCount== 0 %}
+        <br><br>
+        <h1 style="color: red">Oh no! There's no food for your preferences currently. We are working on it!</h1>
+        {% else %}
+
         {% for food_item in food_items %}
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card">
@@ -104,6 +123,7 @@ img{
             </div>
         </div>
         {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

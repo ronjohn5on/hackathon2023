@@ -3,15 +3,36 @@
 {% block content %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></head>
 {% endblock %}
 
+<h1 class="display-5 fw-bolder mb-2" style="text-align: center; padding: 10px;">Profile</h1>
 <div class="profile-container">
-    <h1>Profile</h1>
-    <p>Username: {{ current_user.username }}</p>
-    <p>Email: {{ current_user.email }}</p>
-    {% if current_user.profile_picture %}
-    <img src="{{ url_for('static', filename='images/' + current_user.profile_picture) }}" alt="Profile Picture">
-    {% endif %}
+    <img class="img" src="static/img/profile_pic.webp" alt="Profile Picture">
+    <p class="user-name">Username: {{ current_user.username }}</p>
+    <p class="ucontact-info">Email: {{ current_user.email }}</p>
+</div>
+<div class="quiz-container">
+    <div class="box1">
+        <p>Time:{{ current_user.result.time }}</p>
+        <p>Dietary Restrictions: {{ current_user.result.diet }}</p>
+        <p>Which Cuisine: {{ current_user.result.cuisine }}</p>
+        <p>Category of Food: {{ current_user.result.category }}</p>
+        <p>Goals:</p>
+        <ul>
+            {% for goal in quiz_data.goal %}
+                <li>{{ goal }}</li>
+            {% endfor %}
+        </ul>
+        <form method="POST" action="">
+            <div>
+                <input type="submit" value="Update answers" class="submitbutton">
+            </div>
+        </form>
+    </div>
+    <div class="box2">
+        <h2>Diet Plan</h2>
+    </div>
+</div>
 
-    <h2>Update Details</h2>
 {% endblock %}

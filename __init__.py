@@ -205,8 +205,353 @@ def create_food():
                     '''
 
             )
+            food_item3 = food(
+                title="Veggie Omelette",
+                cooking_time=15,
+                ingredient=1,
+                category=1,
+                time=1,
+                restriction=1,
+                goal1="Maximum Nutrition Meal",
+                goal2="Vegetarian Meal",
+                goal3="None",
+                image="veggie_omelette.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - 3 large eggs
+                    - Assorted vegetables (e.g., bell peppers, tomatoes, onions, mushrooms)
+                    - Salt and pepper, to taste
+                    - Olive oil or butter
+
+                    Instructions:
+
+                    1. Dice the assorted vegetables.
+
+                    2. Crack the eggs into a bowl and beat them. Season with salt and pepper.
+
+                    3. Heat a bit of olive oil or butter in a non-stick skillet over medium-high heat.
+
+                    4. Add the diced vegetables to the skillet and sauté until they are tender.
+
+                    5. Pour the beaten eggs over the vegetables in the skillet.
+
+                    6. Allow the eggs to cook, gently lifting the edges with a spatula to let the uncooked egg flow underneath.
+
+                    7. Once the omelette is mostly set, flip it over to cook the other side briefly.
+
+                    8. Slide the veggie omelette onto a plate.
+
+                    9. Enjoy your nutritious veggie omelette for breakfast or brunch!
+                '''
+            )
+            food_item4 = food(
+                title="Shrimp Scampi",
+                cooking_time=15,
+                ingredient=1,
+                category=1,
+                time=3,
+                restriction=3,
+                goal1="Protein Meal",
+                goal2="None",
+                goal3="None",
+                image="shrimp_scampi.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - 1 pound large shrimp, peeled and deveined
+                    - 8 oz linguine or spaghetti
+                    - 4 cloves garlic, minced
+                    - 1/4 cup white wine (optional)
+                    - 1/4 cup chicken broth
+                    - 2 tablespoons butter
+                    - 2 tablespoons olive oil
+                    - Juice of 1 lemon
+                    - Fresh parsley, for garnish
+                    - Salt and pepper, to taste
+                    - Red pepper flakes (optional, for heat)
+
+                    Instructions:
+
+                    1. Cook the linguine or spaghetti according to package instructions. Drain and set aside.
+
+                    2. Season the shrimp with salt and pepper.
+
+                    3. In a large skillet, heat olive oil and butter over medium heat. Add minced garlic and sauté until fragrant.
+
+                    4. Add the shrimp to the skillet and cook until they turn pink and opaque, about 2-3 minutes per side. Remove the shrimp from the skillet and set aside.
+
+                    5. If using white wine, pour it into the skillet and simmer for a minute to reduce.
+
+                    6. Add chicken broth, lemon juice, and red pepper flakes if desired. Stir and simmer for a few minutes.
+
+                    7. Return the cooked shrimp to the skillet and toss to coat them with the sauce.
+
+                    8. Serve the shrimp scampi over the cooked pasta.
+
+                    9. Garnish with fresh parsley before serving.
+
+                    10. Enjoy your flavorful shrimp scampi!
+                '''
+            )
+            food_item5 = food(
+                title="Beef Stir-Fry",
+                cooking_time=15,
+                ingredient=1,
+                category=2,
+                time=3,
+                restriction=3,
+                goal1="Protein Meal",
+                goal2="None",
+                goal3="None",
+                image="beef_stir_fry.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - 1 pound beef strips (e.g., sirloin or flank steak)
+                    - Assorted vegetables (e.g., bell peppers, broccoli, carrots)
+                    - 2 tablespoons vegetable oil
+                    - 2 cloves garlic, minced
+                    - 1/4 cup soy sauce
+                    - 2 tablespoons oyster sauce
+                    - 1 tablespoon sugar
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. Heat vegetable oil in a wok or large skillet over high heat.
+
+                    2. Add minced garlic and stir-fry for about 30 seconds until fragrant.
+
+                    3. Add beef strips and stir-fry for about 3-4 minutes until they are browned and cooked to your desired level of doneness. Remove the beef from the wok and set it aside.
+
+                    4. In the same wok, add more oil if needed and stir-fry the assorted vegetables until they are tender-crisp.
+
+                    5. Return the cooked beef to the wok with the vegetables.
+
+                    6. In a small bowl, mix soy sauce, oyster sauce, sugar, salt, and pepper.
+
+                    7. Pour the sauce mixture over the stir-fry and toss to coat evenly.
+
+                    8. Continue to cook for another 2-3 minutes until everything is heated through.
+
+                    9. Serve your beef stir-fry over steamed rice or noodles.
+
+                    10. Enjoy a flavorful and satisfying meal!
+                '''
+            )
+            food_item6 = food(
+                title="Mushroom Risotto",
+                cooking_time=30,
+                ingredient=1,
+                category=1,
+                time=3,
+                restriction=1,
+                goal1="Maximum Nutrition Meal",
+                goal2="Vegetarian Meal",
+                goal3="None",
+                image="mushroom_risotto.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - 1 1/2 cups Arborio rice
+                    - 8 oz mushrooms, sliced
+                    - 1 small onion, finely chopped
+                    - 2 cloves garlic, minced
+                    - 4 cups vegetable broth, heated
+                    - 1/2 cup dry white wine (optional)
+                    - 2 tablespoons butter
+                    - 2 tablespoons olive oil
+                    - 1/2 cup grated Parmesan cheese
+                    - Fresh parsley, for garnish
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. In a large skillet, heat olive oil and butter over medium heat. Add the chopped onion and sauté until translucent.
+
+                    2. Add minced garlic and sliced mushrooms. Cook until the mushrooms are browned.
+
+                    3. Stir in Arborio rice and cook for a few minutes until the rice is lightly toasted.
+
+                    4. If using white wine, pour it into the skillet and stir until it is mostly absorbed by the rice.
+
+                    5. Begin adding the heated vegetable broth, one ladle at a time, stirring constantly. Allow each ladle of broth to be absorbed before adding the next.
+
+                    6. Continue this process until the rice is creamy and cooked to your desired level of doneness (about 18-20 minutes).
+
+                    7. Stir in grated Parmesan cheese and season with salt and pepper.
+
+                    8. Garnish with fresh parsley before serving.
+
+                    9. Enjoy your homemade mushroom risotto!
+                '''
+            )
+            food_item7 = food(
+                title="Grilled Vegetable Skewers",
+                cooking_time=25,
+                ingredient=1,
+                category=1,
+                time=3,
+                restriction=1,
+                goal1="Maximum Nutrition Meal",
+                goal2="Vegetarian Meal",
+                goal3="None",
+                image="grilled_vegetables_skewers.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - Assorted vegetables (e.g., bell peppers, zucchini, cherry tomatoes, mushrooms)
+                    - Wooden skewers, soaked in water
+                    - Olive oil
+                    - Garlic powder
+                    - Dried herbs (e.g., oregano, thyme)
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. Preheat the grill to medium-high heat.
+
+                    2. Thread the assorted vegetables onto the soaked wooden skewers, alternating them.
+
+                    3. Brush the vegetable skewers with olive oil and sprinkle with garlic powder, dried herbs, salt, and pepper.
+
+                    4. Grill the skewers for about 10-12 minutes, turning occasionally, until the vegetables are tender and slightly charred.
+
+                    5. Serve the grilled vegetable skewers as a delicious and healthy side dish or main course.
+
+                    6. Enjoy your grilled vegetable skewers!
+                '''
+            )
+            food_item8 = food(
+                title="Caprese Salad",
+                cooking_time=10,
+                ingredient=1,
+                category=1,
+                time=1,
+                restriction=1,
+                goal1="Maximum Nutrition Meal",
+                goal2="None",
+                goal3="None",
+                image="caprese_salad.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - Fresh ripe tomatoes
+                    - Fresh mozzarella cheese
+                    - Fresh basil leaves
+                    - Extra virgin olive oil
+                    - Balsamic vinegar (optional)
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. Slice the fresh ripe tomatoes and fresh mozzarella cheese into even rounds.
+
+                    2. Arrange the tomato and mozzarella slices on a serving plate, alternating them.
+
+                    3. Tuck fresh basil leaves between the tomato and mozzarella slices.
+
+                    4. Drizzle extra virgin olive oil over the salad.
+
+                    5. Optionally, you can drizzle balsamic vinegar for extra flavor.
+
+                    6. Season with salt and pepper to taste.
+
+                    7. Enjoy your classic Caprese salad as a refreshing appetizer or side dish!
+                '''
+            )
+            food_item9 = food(
+                title="Avocado Toast",
+                cooking_time=10,
+                ingredient=1,
+                category=1,
+                time=1,
+                restriction=1,
+                goal1="Maximum Nutrition Meal",
+                goal2="None",
+                goal3="None",
+                image="avocado_toast.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - Sliced whole-grain bread, toasted
+                    - Ripe avocados, mashed
+                    - Cherry tomatoes, sliced
+                    - Red onion, thinly sliced
+                    - Fresh basil leaves
+                    - Olive oil
+                    - Balsamic vinegar (optional)
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. Toast slices of whole-grain bread until they are golden brown and crispy.
+
+                    2. While the bread is toasting, slice ripe avocados and mash them in a bowl.
+
+                    3. Drizzle olive oil over the mashed avocados and season with salt and pepper.
+
+                    4. Spread the mashed avocado mixture generously onto the toasted bread slices.
+
+                    5. Top the avocado toast with sliced cherry tomatoes, thinly sliced red onion, and fresh basil leaves.
+
+                    6. Optionally, drizzle with balsamic vinegar for extra flavor.
+
+                    7. Serve your delicious and nutritious avocado toast as a satisfying breakfast or snack!
+
+                    8. Enjoy this simple and healthy meal.
+                '''
+            )
+            food_item10 = food(
+                title="Grilled Salmon",
+                cooking_time=15,
+                ingredient=1,
+                category=1,
+                time=3,
+                restriction=3,
+                goal1="Protein Meal",
+                goal2="None",
+                goal3="None",
+                image="grilled_salmon.jpg",
+                cooking_direction='''
+                    Ingredients:
+
+                    - Salmon fillets
+                    - Olive oil
+                    - Lemon juice
+                    - Fresh herbs (e.g., dill, rosemary, thyme)
+                    - Salt and pepper, to taste
+
+                    Instructions:
+
+                    1. Preheat your grill to medium-high heat.
+
+                    2. Season salmon fillets with olive oil, lemon juice, fresh herbs, salt, and pepper.
+
+                    3. Place salmon fillets on the grill skin-side down.
+
+                    4. Grill for about 3-4 minutes per side, depending on the thickness of the fillets, until the salmon flakes easily with a fork.
+
+                    5. Remove the grilled salmon from the heat.
+
+                    6. Serve your perfectly grilled salmon with your favorite side dishes!
+
+                    7. Enjoy a healthy and flavorful meal!
+                '''
+            )
+
+
             db.session.add(food_item1)
             db.session.add(food_item2)
+            db.session.add(food_item3)
+            db.session.add(food_item4)
+            db.session.add(food_item5)
+            db.session.add(food_item6)
+            db.session.add(food_item7)
+            db.session.add(food_item8)
+            db.session.add(food_item9)
+            db.session.add(food_item10)
             db.session.commit()
 
 
@@ -424,6 +769,29 @@ def display_food_items():
     food_items = food.query.all()
     return render_template('food_items.html', food_items=food_items)
 
+def quiz_check():
+    if session.get('logged_in'):
+        test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+        if test_results_id:
+            return True #If logged in user have test result
+        return False#If logged in user have no test result
+    elif session.get('quiz_choices'):
+        return True #If user is not logged in and have quiz
+    return False #If no quiz for not logged in user
+
+def getQuizAnswer():
+    if session.get('logged_in'):
+        if quiz_check():
+            test_results_id = Users.query.filter_by(username=session.get('username')).first().test_results
+            return TestResults.query.filter_by(id=test_results_id).first()
+        else:
+            return None
+    elif session.get('quiz_choices'):
+        return session['quiz_choices']
+    return None
+
+
+
 def return_food_on_quiz():
     try:
         if session.get('logged_in'):
@@ -515,6 +883,7 @@ def test():
 @app.route('/food_items2')
 def display_food_items2():
     # Query the food table to retrieve all food items
+
     food_items = return_food_on_quiz()
     favourite_list = None
     #Get user favourite list
@@ -522,7 +891,7 @@ def display_food_items2():
         account_id = Users.query.filter_by(username=session.get('username')).first().id
         favourite_list = [i.food_id_foreign_key for i in Favourites.query.filter_by(account_id_foreign_key=account_id).all()]
         print(favourite_list)
-    return render_template('food_items2.html', food_items=food_items, favourite_list=favourite_list)
+    return render_template('food_items2.html', quiz_completed=quiz_check(), food_items=food_items, foodItemCount=len(food_items), favourite_list=favourite_list, quizAnswer=getQuizAnswer())
 
 @app.route('/quiz',methods=['GET', 'POST'])
 def quizPage():
@@ -575,10 +944,19 @@ def quizPage():
 
     return render_template('quiz.html', form=form)
 
-@app.route('/profile')
+@app.route('/profile',methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html')
+    quiz_data = None  # Initialize quiz_data as None
+
+    if current_user.is_authenticated:
+        # Assuming the user's quiz data is associated with the 'result' attribute
+        quiz_data = current_user.result
+
+    if request.method == 'POST':
+        return redirect(url_for('quizPage'))
+    
+    return render_template('profile.html', quiz_data=quiz_data)
 
 @app.errorhandler(404)
 def url_error(error):
